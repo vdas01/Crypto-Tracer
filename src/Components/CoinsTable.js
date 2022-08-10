@@ -31,17 +31,11 @@ const CoinsTable = () => {
     const navigate = useNavigate();
     const classes = useStyles();
     const [search, setSearch] = useState(" ");
-    const [coins, setCoins] = useState([]);
-    const [loading,setLoading] = useState(false);
-    const {currency,symbol} = CryptoState();
+  
+    const {currency,symbol,coins,loading,fetchCoins} = CryptoState();
     const [page, setPage] = useState(1);
 
-    const fetchCoins = async()=>{
-        setLoading(true);
-        const {data} = await axios.get(CoinList(currency));
-        setCoins(data);
-        setLoading(false);
-    };
+   
 
     useEffect(() => {
        fetchCoins();
@@ -121,7 +115,7 @@ const CoinsTable = () => {
                         )
                     }
                  </TableContainer>
-                 <Pagination count={(handleSearch()?.length/size).toFixed(2)} 
+                 <Pagination count={(handleSearch()?.length/size).toFixed(0)} 
                  style={{padding:20, width:"100%",display:"flex",justifyContent:"center"}}
                   classes={{ul:classes.pagination}}
                   onChange={(_,value)=>{
